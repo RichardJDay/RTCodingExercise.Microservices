@@ -1,14 +1,26 @@
 version: '3.4'
 
 services:
-  webmvc:
-    image: regtansfers/rtcodingexercise-webmvc
+  nginx:
     build:
-      context: .
-      dockerfile: src/Web/WebMVC/Dockerfile
+      context: ./src/Web/Angular
+      dockerfile: DockerFile
+    container_name: angular-nginx
+    ports:
+      - "80:80"
+    expose: 
+      - "80"   
     depends_on:
-      - sqldata
       - catalog-api
+
+  # webmvc:
+  #   image: regtansfers/rtcodingexercise-webmvc
+  #   build:
+  #     context: .
+  #     dockerfile: src/Web/WebMVC/Dockerfile
+  #   depends_on:
+  #     - sqldata
+  #     - catalog-api
 
   catalog-api:
     image: regtansfers/rtcodingexercise-catalogapi
