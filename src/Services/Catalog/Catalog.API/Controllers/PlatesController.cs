@@ -14,9 +14,21 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Plate>> GetPlates()
+        public async Task<List<Plate>> GetPlates(int pageSize, int pageNumber)
         {
-            return await _plateService.GetPlates();
+            var getPlateRequest = new GetPlateRequest
+            {
+                PageSize = pageSize,
+                PageNumber = pageNumber
+            };
+            return await _plateService.GetPlates(getPlateRequest);
+        }
+
+        [HttpPost]
+        public async Task<Plate> CreatePlate([FromBody] Plate plate)
+        {
+            var createdPlate = await _plateService.CreatePlate(plate);
+            return createdPlate;
         }
     }
 }

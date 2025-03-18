@@ -1,12 +1,27 @@
 <div class="p-6">
 	<div *ngIf="plates$ | async as plates">
-	  <h1 class="text-2xl font-bold mb-4">Plates</h1>
-	  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-		<div *ngFor="let plate of plates" class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
-		  <p class="text-lg font-semibold">{{ plate.registration }}</p>
-		  <p class="text-green-600 font-medium">Sale Price: {{ plate.salePrice | currency: 'GBP' }}</p>
-		  <p class="text-red-500 font-medium">Purchase Price: {{ plate.purchasePrice | currency: 'GBP'}}</p>
+		<h1 class="text-3xl font-bold mb-4">Plates</h1>
+		<div class="flex justify-between">
+			<button (click)="prevPage()" class="border rounded-lg p-2  m-2 hover:shadow-sm">
+				Previous Page
+			</button>
+			<button (click)="nextPage()" class="border rounded-lg p-2 m-2 hover:shadow-sm">
+				Next Page
+			</button>
 		</div>
-	  </div>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div *ngFor="let plate of plates"
+				class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
+				<p class="text-lg font-semibold">
+					{{ plate.registration }}
+				</p>
+				<p class="text-green-600 font-medium">
+					Sale Price: {{ plate.salePrice | currency: 'GBP' }}
+				</p>
+				<p class="text-red-500 font-medium">
+					Purchase Price: {{ plate.purchasePrice | currency: 'GBP'}}
+				</p>
+			</div>
+		</div>
 	</div>
-  </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using Catalog.API.Repositories;
+﻿using Catalog.API.Controllers;
+using Catalog.API.Repositories;
 
 namespace Catalog.API.Services
 {
@@ -10,11 +11,16 @@ namespace Catalog.API.Services
         {
             _plateRepository = plateRepository;
         }
-        public async Task<List<Plate>> GetPlates()
+        public async Task<List<Plate>> GetPlates(GetPlateRequest getPlateRequest)
         {
-            var plates =  await _plateRepository.GetPlates();
+            var plates =  await _plateRepository.GetPlates(getPlateRequest);
 
-            return plates.Values.ToList();
+            return plates;
+        }
+
+        public async Task<Plate> CreatePlate(Plate plate)
+        {
+            return await _plateRepository.CreatePlate(plate);
         }
     }
 }

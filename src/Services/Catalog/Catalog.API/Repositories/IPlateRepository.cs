@@ -1,8 +1,12 @@
 ﻿
+using Catalog.API.Controllers;
+
 namespace Catalog.API.Repositories
 {
     public interface IPlateRepository
     {
-        Task<Dictionary<Guid, Plate>> GetPlates();
+        Task<Plate> CreatePlate(Plate plate);
+        Task<List<Plate>> GetPlates(GetPlateRequest getPlateRequest);
+
     }
 }
