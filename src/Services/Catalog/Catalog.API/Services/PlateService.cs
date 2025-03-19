@@ -11,9 +11,9 @@ namespace Catalog.API.Services
         {
             _plateRepository = plateRepository;
         }
-        public async Task<List<Plate>> GetPlates(GetPlateRequest getPlateRequest)
+        public async Task<List<Plate>> GetPlates(int pageSize, int pageNumber)
         {
-            var plates =  await _plateRepository.GetPlates(getPlateRequest);
+            var plates =  await _plateRepository.GetPlates(pageSize, pageNumber);
 
             return plates;
         }

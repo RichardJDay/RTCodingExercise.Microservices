@@ -12,11 +12,11 @@ namespace Catalog.API.Repositories
             _context = context;
         }
 
-        public async Task<List<Plate>> GetPlates(GetPlateRequest getPlateRequest)
+        public async Task<List<Plate>> GetPlates(int pageSize, int pageNumber)
         {
             var thing =  await _context.Plates
-                .Skip((getPlateRequest.PageNumber - 1) * getPlateRequest.PageSize)
-                .Take(getPlateRequest.PageSize)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
             return thing;

@@ -16,12 +16,7 @@ namespace Catalog.API.Controllers
         [HttpGet]
         public async Task<List<Plate>> GetPlates(int pageSize, int pageNumber)
         {
-            var getPlateRequest = new GetPlateRequest
-            {
-                PageSize = pageSize,
-                PageNumber = pageNumber
-            };
-            return await _plateService.GetPlates(getPlateRequest);
+            return await _plateService.GetPlates(pageSize, pageNumber);
         }
 
         [HttpPost]

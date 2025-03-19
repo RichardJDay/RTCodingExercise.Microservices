@@ -7,6 +7,6 @@ namespace Catalog.API.Services
     public interface IPlateService
     {
         Task<Plate> CreatePlate(Plate plate);
-        Task<List<Plate>> GetPlates(GetPlateRequest getPlateRequest);
+        Task<List<Plate>> GetPlates(int pageSize, int pageNumber);
     }
 }
