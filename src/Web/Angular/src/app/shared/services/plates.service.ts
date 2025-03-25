@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Plate } from '../models/plate';
 import { CreatePlateRequest } from '../models/dtos/CreatePlateRequest';
 import { GetPlateRequest } from '../models/dtos/GetPlatesRequest';

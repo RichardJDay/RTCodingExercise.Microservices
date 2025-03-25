@@ -8,7 +8,7 @@
 
         public decimal PurchasePrice { get; set; }
 
-        public decimal SalePrice { get; set; }
+        public decimal SalePrice => SalePrice + (PurchasePrice / 100 * 20);
 
         public string? Letters { get; set; }
 
