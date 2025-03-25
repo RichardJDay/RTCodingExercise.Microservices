@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using Catalog.Application;
+using MassTransit;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 
@@ -17,14 +18,7 @@ namespace Catalog.API
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration["ConnectionString"],
-                    sqlServerOptionsAction: sqlOptions =>
-                    {
-                        sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-                        //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-                        sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                    }));
+            services.AddApplicationServices(Configuration);
 
             services.AddSwaggerGen(options =>
             {
@@ -89,7 +83,11 @@ namespace Catalog.API
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Append("Content-Security-Policy", "script-src 'self' 'unsafe-inline' 'unsafe-eval'");
+                await next();
+            });
             var pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
             {

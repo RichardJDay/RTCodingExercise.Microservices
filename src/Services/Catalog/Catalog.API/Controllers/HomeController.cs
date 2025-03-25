@@ -6,5 +6,11 @@
         {
             return new RedirectResult("~/swagger");
         }
+
+        [HttpGet("test")]
+        public string Test()
+        {
+            return "etst";
+        }
     }
 }

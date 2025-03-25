@@ -1,16 +1,20 @@
 ﻿using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Catalog.Infrastructure;
+using System.IO;
 
 namespace Catalog.API.Data
 {
     public class ApplicationDbContextSeed
     {
-        public async Task SeedAsync(ApplicationDbContext context, IWebHostEnvironment env, ILogger<ApplicationDbContextSeed> logger, IOptions<AppSettings> settings, int? retry = 0)
+        public async Task SeedAsync(ApplicationDbContext context, string ContentRootPath, ILogger<ApplicationDbContextSeed> logger, IOptions<AppSettings> settings, int? retry = 0)
         {
             int retryForAvaiability = retry.Value;
 
             try
             {
-                await SeedCustomData(context, env, logger);
+                await SeedCustomData(context, ContentRootPath, logger);
             }
             catch (Exception ex)
             {
@@ -21,16 +25,16 @@ namespace Catalog.API.Data
 
                     logger.LogError(ex.Message, $"There is an error migrating data for ApplicationDbContext");
 
-                    await SeedAsync(context, env, logger, settings, retryForAvaiability);
+                    await SeedAsync(context, ContentRootPath, logger, settings, retryForAvaiability);
                 }
             }
         }
 
-        public async Task SeedCustomData(ApplicationDbContext context, IWebHostEnvironment env, ILogger<ApplicationDbContextSeed> logger)
+        public async Task SeedCustomData(ApplicationDbContext context, string ContentRootPath, ILogger<ApplicationDbContextSeed> logger)
         {
             try
             {
-                var plates = ReadApplicationRoleFromJson(env.ContentRootPath, logger);
+                var plates = ReadApplicationRoleFromJson(ContentRootPath, logger);
 
                 await context.Plates.AddRangeAsync(plates);
                 await context.SaveChangesAsync();

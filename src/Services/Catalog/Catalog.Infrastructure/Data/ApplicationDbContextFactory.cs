@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace Catalog.API.Data
 {
@@ -7,9 +9,6 @@ namespace Catalog.API.Data
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var config = new ConfigurationBuilder()
-               .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
-               .AddJsonFile("appsettings.json")
-               .AddEnvironmentVariables()
                .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();

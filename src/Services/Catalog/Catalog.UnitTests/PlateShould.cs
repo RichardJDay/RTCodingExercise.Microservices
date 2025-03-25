@@ -2,7 +2,7 @@ using Xunit;
 
 namespace Catalog.UnitTests
 {
-    public class UnitTest1
+    public class PlateShould
     {
         [Fact]
         public void Test1()

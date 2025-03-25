@@ -1,4 +1,7 @@
-﻿namespace Catalog.API.Data
+﻿using Catalog.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
+namespace Catalog.API.Data
 {
     public class ApplicationDbContext : DbContext
     {
